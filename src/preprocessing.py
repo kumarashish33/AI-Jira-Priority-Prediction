@@ -1,3 +1,21 @@
+import nltk
+
+# Download required NLTK resources only if missing
+try:
+    nltk.data.find("corpora/stopwords")
+except LookupError:
+    nltk.download("stopwords")
+
+try:
+    nltk.data.find("corpora/wordnet")
+except LookupError:
+    nltk.download("wordnet")
+
+try:
+    nltk.data.find("corpora/omw-1.4")
+except LookupError:
+    nltk.download("omw-1.4")
+
 import string
 
 from nltk.corpus import stopwords
