@@ -79,7 +79,6 @@ with left:
     st.write("Enter a Jira ticket summary below.")
 
     ticket = st.text_area(
-        "Jira Ticket Summary",
         height=150
     )
 
