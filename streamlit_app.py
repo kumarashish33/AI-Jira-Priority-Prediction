@@ -1,43 +1,80 @@
 import streamlit as st
 
-st.title("🤖 AI-Powered Jira Ticket Prioritization")
+st.markdown("""
+<style>
+
+/* Background */
+.stApp{
+    background-color:#0E1117;
+}
+
+/* Button */
+.stButton > button {
+    background-color: #2563EB;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+}
+
+.stButton > button:hover {
+    background-color: #1D4ED8;
+}
+
+/* Text Area */
+.stTextArea textarea {
+    border-radius: 10px;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"]{
+    background-color:#1A1D29;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+# 🤖 AI-Powered Jira Ticket Prioritization
+### Intelligent NLP-based Priority Prediction for Jira Issues
+""")
 st.info("""
-Example:
+💡 Example Tickets
 
 • Authentication failed when attempting Fetch command
 
 • OAuth token keeps expiring
 
-• pull push fail atlassian logon window open sourcetree push
+• Pull push failed after Atlassian login
 
-• fake 3410 version sourcetree
+• Fake 3410 version Sourcetree
+
 """)
 
-st.sidebar.title("About")
+st.sidebar.title("🤖 AI Jira Prioritization")
 
-st.sidebar.write("""
-AI Powered Jira Ticket Prioritization
+st.sidebar.markdown("---")
 
-Model:
-- TF-IDF
-- Logistic Regression
+st.sidebar.subheader("📊 Model")
+st.sidebar.write("• TF-IDF")
+st.sidebar.write("• Logistic Regression")
 
-Developed using
+st.sidebar.markdown("---")
 
-- Python
-- Scikit-learn
-- Streamlit
-""")
+st.sidebar.subheader("⚙️ Tech Stack")
+st.sidebar.write("• Python")
+st.sidebar.write("• Scikit-learn")
+st.sidebar.write("• Streamlit")
 
-st.sidebar.metric(
-    "Model Accuracy",
-    "99.47%"
-)
+st.sidebar.markdown("---")
 
-st.sidebar.metric(
-    "Algorithm",
-    "Logistic Regression"
-)
+st.sidebar.subheader("📈 Performance")
+st.sidebar.write("Accuracy: **99.47%**")
+
+st.sidebar.markdown("---")
+
+st.sidebar.subheader("🚀 Version")
+st.sidebar.success("Version 1.0")
 
 st.write("Enter a Jira ticket summary below.")
 
@@ -46,7 +83,12 @@ ticket = st.text_area(
     height=150
 )
 
-predict_button = st.button("Predict Priority")
+predict_button = st.button(
+    "🚀 Predict Priority",
+    use_container_width=True
+)
+
+
 
 from src.predictor import predict_priority
 
@@ -75,8 +117,8 @@ if predict_button:
 
         st.progress(float(confidence))
 
-        st.write(f"**Confidence:** {confidence:.2%}")
+        st.markdown(f"### 📈 Confidence Score: **{confidence:.2%}**")
 
-        st.subheader("Prediction Probabilities")
+        st.markdown("## 📊 Prediction Probabilities")
 
         st.bar_chart(class_probabilities)
