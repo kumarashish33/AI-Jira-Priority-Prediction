@@ -1,12 +1,10 @@
 import streamlit as st
+from src.predictor import predict_priority
 
 st.markdown("""
 <style>
 
 /* Background */
-.stApp{
-    background-color:#0E1117;
-}
 
 /* Button */
 .stButton > button {
@@ -27,29 +25,9 @@ st.markdown("""
 }
 
 /* Sidebar */
-section[data-testid="stSidebar"]{
-    background-color:#1A1D29;
-}
 
 </style>
 """, unsafe_allow_html=True)
-
-st.markdown("""
-# 🤖 AI-Powered Jira Ticket Prioritization
-### Intelligent NLP-based Priority Prediction for Jira Issues
-""")
-st.info("""
-💡 Example Tickets
-
-• Authentication failed when attempting Fetch command
-
-• OAuth token keeps expiring
-
-• Pull push failed after Atlassian login
-
-• Fake 3410 version Sourcetree
-
-""")
 
 st.sidebar.title("🤖 AI Jira Prioritization")
 
@@ -76,21 +54,39 @@ st.sidebar.markdown("---")
 st.sidebar.subheader("🚀 Version")
 st.sidebar.success("Version 1.0")
 
-st.write("Enter a Jira ticket summary below.")
 
-ticket = st.text_area(
-    "Jira Ticket Summary",
-    height=150
-)
+st.markdown("""
+# 🤖 AI-Powered Jira Ticket Prioritization
+### Intelligent NLP-based Priority Prediction for Jira Issues
+""")
 
-predict_button = st.button(
-    "🚀 Predict Priority",
-    use_container_width=True
-)
+left, right = st.columns([2,1])
+with left:
 
+    st.info("""
+    💡 Example Tickets
 
+    • Authentication failed when attempting Fetch command
 
-from src.predictor import predict_priority
+    • OAuth token keeps expiring
+
+    • Pull push failed after Atlassian login
+
+    • Fake 3410 version Sourcetree
+
+    """)
+
+    st.write("Enter a Jira ticket summary below.")
+
+    ticket = st.text_area(
+        "Jira Ticket Summary",
+        height=150
+    )
+
+    predict_button = st.button(
+        "🚀 Predict Priority",
+        use_container_width=True
+    )
 
 if predict_button:
 
@@ -103,21 +99,24 @@ if predict_button:
 
             priority, confidence, class_probabilities = predict_priority(ticket)
 
-        if priority == "Highest":
-            st.error(f"🚨 Predicted Priority : {priority}")
+        with right:
+            st.subheader("🎯 Prediction Result")
 
-        elif priority == "High":
-            st.warning(f"⚠️ Predicted Priority : {priority}")
+            if priority == "Highest":
+                st.error(f"🚨 Predicted Priority : {priority}")
 
-        elif priority == "Medium":
-            st.info(f"ℹ️ Predicted Priority : {priority}")
+            elif priority == "High":
+                st.warning(f"⚠️ Predicted Priority : {priority}")
 
-        else:
-            st.success(f"✅ Predicted Priority : {priority}")
+            elif priority == "Medium":
+                st.info(f"ℹ️ Predicted Priority : {priority}")
 
-        st.progress(float(confidence))
+            else:
+                st.success(f"✅ Predicted Priority : {priority}")
 
-        st.markdown(f"### 📈 Confidence Score: **{confidence:.2%}**")
+            st.progress(float(confidence))
+
+            st.markdown(f"### 📈 Confidence Score: **{confidence:.2%}**")
 
         st.markdown("## 📊 Prediction Probabilities")
 
