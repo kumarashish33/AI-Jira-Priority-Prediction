@@ -12,3 +12,5 @@ ARTIFACTS_DIR = PROJECT_ROOT/"artifacts"
 MODEL_PATH = ARTIFACTS_DIR / "logistic_regression_model.pkl"
 TFIDF_PATH = ARTIFACTS_DIR / "tfidf_vectorizer.pkl"
 LABEL_ENCODER_PATH = ARTIFACTS_DIR / "label_encoder.pkl"
+
+RAW_DATA_PATH = DATA_DIR / "raw" / "GFG_FINAL.csv"
