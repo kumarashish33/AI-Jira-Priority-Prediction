@@ -7,11 +7,14 @@ from sklearn.metrics import accuracy_score, classification_report, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
+from src.preprocessing import clean_text, initialize_nltk
+
 from src.config import (
     DATA_DIR,
     MODEL_PATH,
     TFIDF_PATH,
     LABEL_ENCODER_PATH,
+    RAW_DATA_PATH,
 )
 
 from src.preprocessing import clean_text
@@ -124,6 +127,7 @@ def save_artifacts(model, vectorizer, encoder):
 
 def main():
     try:
+        initialize_nltk()
         df = load_data()
 
         df = preprocess_data(df)

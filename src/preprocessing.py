@@ -1,73 +1,74 @@
 import nltk
-
-# Download required NLTK resources only if missing
-try:
-    nltk.data.find("corpora/stopwords")
-except LookupError:
-    nltk.download("stopwords")
-
-try:
-    nltk.data.find("corpora/wordnet")
-except LookupError:
-    nltk.download("wordnet")
-
-try:
-    nltk.data.find("corpora/omw-1.4")
-except LookupError:
-    nltk.download("omw-1.4")
-
 import string
 
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from src.logging_config import logger
+
+# Download required NLTK resources only if missing
+def initialize_nltk():
+    """Download required NLTK resources if missing."""
+
+    resources = [
+        ("corpora/stopwords", "stopwords"),
+        ("corpora/wordnet", "wordnet"),
+        ("corpora/omw-1.4", "omw-1.4"),
+    ]
+
+    for resource_path, resource_name in resources:
+        try:
+            nltk.data.find(resource_path)
+        except LookupError:
+            logger.warning(f"Downloading NLTK resource: {resource_name}")
+            nltk.download(resource_name)
+
+    logger.info("NLTK resources initialized.")
+
 
 lemmatizer = WordNetLemmatizer()
 
 def clean_text(text):
-    """
-    Cleans a Jira ticket summary for NLP processing.
+    try:
+        if not isinstance(text, str):
+            logger.warning("Received non-string input for preprocessing.")
+            return ""
 
-    Steps:
-    1. Lowercase
-    2. Remove punctuation
-    3. Tokenize
-    4. Remove stopwords
-    5. Lemmatize
-    6. Join tokens back into a sentence
-    """    
-    
-   #  print('Original Text: ')
-   #  print(text)
-    #lowerCase
-    text = text.lower()
-    # print('Lower Case Text: ')
-    # print(text)
-    
-    #Remove punctuation
-    text = text.translate(
-        str.maketrans('','',string.punctuation)
-    )
-    # print('Punctuation Removed Text: ')
-    # print(text)
+        # existing preprocessing code
 
-    #tokenize
-    tokens = text.split()
-    # print('Tokens: ')
-    # print(tokens)
+        #lowerCase
+        text = text.lower()
+        # print('Lower Case Text: ')
+        # print(text)
+        
+        #Remove punctuation
+        text = text.translate(
+            str.maketrans('','',string.punctuation)
+        )
+        # print('Punctuation Removed Text: ')
+        # print(text)
 
-    #remove stopwords
-    stop_words = set(stopwords.words("english"))
-    important_words = {'not','no','nor'}
-    custom_stop_words = [word for word in stop_words if word not in important_words]
-    tokens = [token for token in tokens if token not in custom_stop_words]
-    # print('Stopwords Removed: ')
-    # print(tokens)
+        #tokenize
+        tokens = text.split()
+        # print('Tokens: ')
+        # print(tokens)
 
-    #Lemmatize 
-    tokens = [lemmatizer.lemmatize(token,pos='v')
-             for token in tokens]
-    # print('Lemmatized Tokens: ')
-    # print(tokens)
+        #remove stopwords
+        stop_words = set(stopwords.words("english"))
+        important_words = {'not','no','nor'}
+        custom_stop_words = [word for word in stop_words if word not in important_words]
+        tokens = [token for token in tokens if token not in custom_stop_words]
+        # print('Stopwords Removed: ')
+        # print(tokens)
 
-    text = " ".join(tokens)
-    return text
+        #Lemmatize 
+        tokens = [lemmatizer.lemmatize(token,pos='v')
+                for token in tokens]
+        # print('Lemmatized Tokens: ')
+        # print(tokens)
+
+        text = " ".join(tokens)
+        return text
+
+    except Exception:
+        logger.exception("Text preprocessing failed.")
+        raise
