@@ -82,7 +82,11 @@ with left:
 
     st.write("Enter a Jira ticket summary below.")
 
-    ticket = st.text_area("", height=150)
+    ticket = st.text_area(
+        "Ticket Summary",
+        height=150,
+        label_visibility="collapsed",
+    )
 
     predict_button = st.button("🚀 Predict Priority", use_container_width=True)
 
