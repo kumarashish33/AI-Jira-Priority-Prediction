@@ -128,6 +128,12 @@ def main():
         initialize_nltk()
         df = load_data()
 
+        from src.data_quality import check_missing_values, validate_schema
+
+        validate_schema(df)
+
+        check_missing_values(df)
+
         df = preprocess_data(df)
 
         X_train, X_test, y_train, y_test, encoder = split_data(df)
