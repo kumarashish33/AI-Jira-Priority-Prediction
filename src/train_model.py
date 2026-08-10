@@ -1,24 +1,15 @@
 import joblib
 import pandas as pd
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-from src.preprocessing import clean_text, initialize_nltk
-
-from src.config import (
-    DATA_DIR,
-    MODEL_PATH,
-    TFIDF_PATH,
-    LABEL_ENCODER_PATH,
-    RAW_DATA_PATH,
-)
-
-from src.preprocessing import clean_text
+from src.config import (LABEL_ENCODER_PATH, MODEL_PATH, RAW_DATA_PATH,
+                        TFIDF_PATH)
 from src.logging_config import logger
+from src.preprocessing import clean_text, initialize_nltk
 
 
 def load_data():
@@ -33,6 +24,7 @@ def load_data():
 
     return df
 
+
 def preprocess_data(df):
     logger.info("Starting preprocessing...")
 
@@ -45,6 +37,7 @@ def preprocess_data(df):
     logger.info("Preprocessing completed.")
 
     return df
+
 
 def split_data(df):
     logger.info("Splitting dataset...")
@@ -65,6 +58,7 @@ def split_data(df):
 
     return X_train, X_test, y_train, y_test, label_encoder
 
+
 def train_vectorizer(X_train, X_test):
     logger.info("Training TF-IDF vectorizer...")
 
@@ -75,6 +69,7 @@ def train_vectorizer(X_train, X_test):
     X_test = tfidf.transform(X_test)
 
     return X_train, X_test, tfidf
+
 
 def train_model(X_train, y_train):
     logger.info("Training Logistic Regression model...")
@@ -89,6 +84,7 @@ def train_model(X_train, y_train):
     logger.info("Model training completed.")
 
     return model
+
 
 def evaluate_model(model, X_test, y_test):
     logger.info("Evaluating model...")
@@ -114,6 +110,7 @@ def evaluate_model(model, X_test, y_test):
 
     return accuracy, macro_f1
 
+
 def save_artifacts(model, vectorizer, encoder):
     logger.info("Saving artifacts...")
 
@@ -124,6 +121,7 @@ def save_artifacts(model, vectorizer, encoder):
     joblib.dump(encoder, LABEL_ENCODER_PATH)
 
     logger.info("Artifacts saved successfully.")
+
 
 def main():
     try:

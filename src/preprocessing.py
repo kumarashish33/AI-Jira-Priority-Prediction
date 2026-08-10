@@ -1,9 +1,11 @@
-import nltk
 import string
 
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+
 from src.logging_config import logger
+
 
 # Download required NLTK resources only if missing
 def initialize_nltk():
@@ -27,6 +29,7 @@ def initialize_nltk():
 
 lemmatizer = WordNetLemmatizer()
 
+
 def clean_text(text):
     try:
         if not isinstance(text, str):
@@ -35,34 +38,31 @@ def clean_text(text):
 
         # existing preprocessing code
 
-        #lowerCase
+        # lowerCase
         text = text.lower()
         # print('Lower Case Text: ')
         # print(text)
-        
-        #Remove punctuation
-        text = text.translate(
-            str.maketrans('','',string.punctuation)
-        )
+
+        # Remove punctuation
+        text = text.translate(str.maketrans("", "", string.punctuation))
         # print('Punctuation Removed Text: ')
         # print(text)
 
-        #tokenize
+        # tokenize
         tokens = text.split()
         # print('Tokens: ')
         # print(tokens)
 
-        #remove stopwords
+        # remove stopwords
         stop_words = set(stopwords.words("english"))
-        important_words = {'not','no','nor'}
+        important_words = {"not", "no", "nor"}
         custom_stop_words = [word for word in stop_words if word not in important_words]
         tokens = [token for token in tokens if token not in custom_stop_words]
         # print('Stopwords Removed: ')
         # print(tokens)
 
-        #Lemmatize 
-        tokens = [lemmatizer.lemmatize(token,pos='v')
-                for token in tokens]
+        # Lemmatize
+        tokens = [lemmatizer.lemmatize(token, pos="v") for token in tokens]
         # print('Lemmatized Tokens: ')
         # print(tokens)
 

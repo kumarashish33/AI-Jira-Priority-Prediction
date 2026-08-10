@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 
 from src.predictor import predict_priority
+
 from .schemas import PredictionRequest, PredictionResponse
 
 app = FastAPI(
@@ -9,32 +10,23 @@ app = FastAPI(
     description="REST API for Jira ticket priority prediction",
 )
 
+
 @app.get("/health")
 def health():
-    return {
-        "status": "healthy",
-        "model": "loaded"
-    }
+    return {"status": "healthy", "model": "loaded"}
 
-@app.post(
-    "/predict",
-    response_model=PredictionResponse
-)
+
+@app.post("/predict", response_model=PredictionResponse)
 def predict(request: PredictionRequest):
 
     try:
         priority, confidence, probabilities = predict_priority(
-            request.text
+            request.text,
         )
 
         return PredictionResponse(
-            priority=priority,
-            confidence=confidence,
-            probabilities=probabilities
+            priority=priority, confidence=confidence, probabilities=probabilities
         )
 
     except Exception as e:
-        raise HTTPException(
-            status_code=400,
-            detail=str(e)
-        )
+        raise HTTPException(status_code=400, detail=str(e))

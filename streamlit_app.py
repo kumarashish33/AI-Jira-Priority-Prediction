@@ -1,7 +1,9 @@
 import streamlit as st
+
 from src.predictor import predict_priority
 
-st.markdown("""
+st.markdown(
+    """
 <style>
 
 /* Background */
@@ -27,7 +29,9 @@ st.markdown("""
 /* Sidebar */
 
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 st.sidebar.title("🤖 AI Jira Prioritization")
 
@@ -60,7 +64,7 @@ st.markdown("""
 ### Intelligent NLP-based Priority Prediction for Jira Issues
 """)
 
-left, right = st.columns([2,1])
+left, right = st.columns([2, 1])
 with left:
 
     st.info("""
@@ -78,15 +82,9 @@ with left:
 
     st.write("Enter a Jira ticket summary below.")
 
-    ticket = st.text_area(
-        "",
-        height=150
-    )
+    ticket = st.text_area("", height=150)
 
-    predict_button = st.button(
-        "🚀 Predict Priority",
-        use_container_width=True
-    )
+    predict_button = st.button("🚀 Predict Priority", use_container_width=True)
 
 if predict_button:
 

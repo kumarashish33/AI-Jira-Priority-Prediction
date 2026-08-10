@@ -1,6 +1,6 @@
 import joblib
 
-from .config import MODEL_PATH, TFIDF_PATH, LABEL_ENCODER_PATH
+from .config import LABEL_ENCODER_PATH, MODEL_PATH, TFIDF_PATH
 from .logging_config import logger
 from .preprocessing import clean_text
 
