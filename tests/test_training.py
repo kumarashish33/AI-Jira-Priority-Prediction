@@ -13,22 +13,54 @@ def test_model_training():
     df = pd.DataFrame(
         {
             "Summary": [
+                # High (5)
                 "Application crashes after login",
                 "Application closes unexpectedly",
+                "System crashes while saving data",
+                "Payment page crashes on submit",
+                "Frequent application crash on startup",
+                # Medium (5)
                 "Unable to login",
                 "Login authentication failed",
+                "Password reset email not received",
+                "User profile update not working",
+                "Session expires too quickly",
+                # Low (5)
                 "Button color is wrong",
                 "UI alignment issue",
+                "Typo in dashboard title",
+                "Logo slightly misaligned",
+                "Incorrect icon displayed on settings page",
+                # Highest (5)
                 "Database connection timeout",
                 "Database server down",
+                "Production API unavailable",
+                "Critical security vulnerability detected",
+                "Payment service completely unavailable",
             ],
             "Priority": [
+                # High
                 "High",
                 "High",
+                "High",
+                "High",
+                "High",
+                # Medium
                 "Medium",
                 "Medium",
+                "Medium",
+                "Medium",
+                "Medium",
+                # Low
                 "Low",
                 "Low",
+                "Low",
+                "Low",
+                "Low",
+                # Highest
+                "Highest",
+                "Highest",
+                "Highest",
                 "Highest",
                 "Highest",
             ],
