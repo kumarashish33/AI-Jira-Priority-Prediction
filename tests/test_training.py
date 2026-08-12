@@ -1,5 +1,6 @@
+import pandas as pd
+
 from src.train_model import (
-    load_data,
     preprocess_data,
     split_data,
     train_model,
@@ -8,7 +9,37 @@ from src.train_model import (
 
 
 def test_model_training():
-    df = load_data()
+
+    df = pd.DataFrame(
+        {
+            "Summary": [
+                "Application crashes after login",
+                "Application closes unexpectedly",
+
+                "Unable to login",
+                "Login authentication failed",
+
+                "Button color is wrong",
+                "UI alignment issue",
+
+                "Database connection timeout",
+                "Database server down",
+            ],
+            "Priority": [
+                "High",
+                "High",
+
+                "Medium",
+                "Medium",
+
+                "Low",
+                "Low",
+
+                "Highest",
+                "Highest",
+            ],
+        }
+    )
 
     df = preprocess_data(df)
 
