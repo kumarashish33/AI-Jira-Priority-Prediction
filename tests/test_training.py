@@ -15,26 +15,20 @@ def test_model_training():
             "Summary": [
                 "Application crashes after login",
                 "Application closes unexpectedly",
-
                 "Unable to login",
                 "Login authentication failed",
-
                 "Button color is wrong",
                 "UI alignment issue",
-
                 "Database connection timeout",
                 "Database server down",
             ],
             "Priority": [
                 "High",
                 "High",
-
                 "Medium",
                 "Medium",
-
                 "Low",
                 "Low",
-
                 "Highest",
                 "Highest",
             ],
