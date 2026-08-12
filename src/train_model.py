@@ -6,8 +6,7 @@ from sklearn.metrics import accuracy_score, classification_report, f1_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-from src.config import (LABEL_ENCODER_PATH, MODEL_PATH, RAW_DATA_PATH,
-                        TFIDF_PATH)
+from src.config import LABEL_ENCODER_PATH, MODEL_PATH, RAW_DATA_PATH, TFIDF_PATH
 from src.logging_config import logger
 from src.preprocessing import clean_text, initialize_nltk
 
