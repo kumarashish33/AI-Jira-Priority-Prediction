@@ -34,10 +34,7 @@ STOP_WORDS = set(stopwords.words("english"))
 
 IMPORTANT_WORDS = {"not", "no", "nor"}
 
-CUSTOM_STOP_WORDS = {
-    word for word in STOP_WORDS
-    if word not in IMPORTANT_WORDS
-}
+CUSTOM_STOP_WORDS = {word for word in STOP_WORDS if word not in IMPORTANT_WORDS}
 
 
 def clean_text(text):
@@ -64,11 +61,7 @@ def clean_text(text):
         # print(tokens)
 
         # remove stopwords
-        tokens = [
-            token
-            for token in tokens
-            if token not in CUSTOM_STOP_WORDS
-        ]
+        tokens = [token for token in tokens if token not in CUSTOM_STOP_WORDS]
         # print('Stopwords Removed: ')
         # print(tokens)
 

@@ -33,7 +33,7 @@ jobs:
           pip install pytest black flake8 isort
 
       - name: Run Black
-        run: black --check .
+        run: python -m black --check .
 
       - name: Run isort
         run: isort --check-only .

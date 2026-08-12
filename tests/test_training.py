@@ -1,5 +1,10 @@
-from src.train_model import (load_data, preprocess_data, split_data,
-                             train_model, train_vectorizer)
+from src.train_model import (
+    load_data,
+    preprocess_data,
+    split_data,
+    train_model,
+    train_vectorizer,
+)
 
 
 def test_model_training():
