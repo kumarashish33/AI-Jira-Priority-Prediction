@@ -4,7 +4,10 @@ WORKDIR /app
 
 COPY requirements.txt .
 
+RUN python -m pip install --upgrade pip setuptools wheel
+
 RUN pip install --no-cache-dir -r requirements.txt
+
 RUN python -m nltk.downloader stopwords punkt wordnet omw-1.4
 
 COPY . .
